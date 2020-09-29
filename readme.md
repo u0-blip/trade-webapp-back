@@ -42,3 +42,8 @@ The orb in circleCI takes care of it automatically.
 
 
 the AWS staging allow the application to be deployed onto Beta instances before the deployment onto the productions machines. 
+
+CircleCI will build and test the application first. Then it will login to the AWS cli terminal using authentication with the environment variables. 
+
+
+running into problem with insufficient permission to create the deployment group with the policy group of AWSCodeDeployFullAccess
