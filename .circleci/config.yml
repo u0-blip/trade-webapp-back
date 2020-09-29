@@ -22,7 +22,7 @@ workflows:
       - build-and-test
       - aws-code-deploy/deploy:
           application-name: trade-webapp
-          bundle-bucket: arn:aws:s3:us-east-2:207363230413:accesspoint/circleci
+          bundle-bucket: s3://petercode/trade-webapp.zip
           bundle-key: trade-webapp
           deployment-group: pythonapp
           service-role-arn: arn:aws:iam::207363230413:role/codedeploy2

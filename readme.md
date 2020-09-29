@@ -47,3 +47,5 @@ CircleCI will build and test the application first. Then it will login to the AW
 
 
 running into problem with insufficient permission to create the deployment group with the policy group of AWSCodeDeployFullAccess
+
+How to Deploy Django Applications on AWS EC2 Using Apache:
