@@ -24,7 +24,7 @@ workflows:
           application-name: trade-webapp
           bundle-bucket: petercode
           bundle-key: trade-webapp
-          deployment-group: pythonapp
+          deployment-group: pythonapp1
           service-role-arn: arn:aws:iam::207363230413:role/codedeploy2
           requires:
             - build-and-test  # Only deploy once the build job has completed
