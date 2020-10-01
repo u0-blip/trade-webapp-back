@@ -28,9 +28,9 @@ workflows:
           service-role-arn: arn:aws:iam::207363230413:role/codedeploy2
           # requires:
           #   - build-and-test  # Only deploy once the build job has completed
-          deployment-config:
+          arguments:
             --ignoreApplicationStopFailures
-            --ec2-tag-filters Key=pythonapp
+            --ec2-tag-filters Key=Name Value=pythonapp
           filters:
             branches:
               only: master # Only deploy on the master branch
