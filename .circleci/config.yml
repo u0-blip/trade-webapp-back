@@ -15,19 +15,92 @@ jobs:
       - run:
           command: python ./manage.py test
           name: Test
+  deploy:
+    description: Ensures an application and deployment group exist then proceeds to
+      bundle and upload an application revision to S3. Once uploaded this job will
+      finally create a deployment based on that revision.
+    executor: aws-cli/default
+    parameters:
+      application-name:
+        description: The name of an AWS CodeDeploy application associated with the
+          applicable IAM user or AWS account.
+        type: string
+      arguments:
+        default: ""
+        description: If you wish to pass any additional arguments to the aws deploy
+          command
+        type: string
+      bundle-bucket:
+        description: The s3 bucket where an application revision will be stored
+        type: string
+      bundle-key:
+        description: A key under the s3 bucket where an application revision will
+          be stored
+        type: string
+      bundle-source:
+        default: .
+        description: The directory relative to your project to package up into an
+          application revision.
+        type: string
+      bundle-type:
+        default: zip
+        description: The file type used for an application revision bundle. Currently
+          defaults to 'zip'
+        type: string
+      deployment-config:
+        default: CodeDeployDefault.OneAtATime
+        description: Predefined deployment configuration name.
+        type: string
+      deployment-group:
+        description: The name of a new deployment group for the specified application.
+        type: string
+      get-deployment-group-arguments:
+        default: ""
+        description: If you wish to pass any additional arguments to the get-deployment-group
+          command
+        type: string
+      service-role-arn:
+        description: The service role for a deployment group.
+        type: string
+    steps:
+    - checkout
+    - aws-cli/setup
+    - aws-code-deploy/create-application:
+        application-name: << parameters.application-name >>
+        arguments: << parameters.arguments >>
+    - aws-code-deploy/create-deployment-group:
+        application-name: << parameters.application-name >>
+        arguments: << parameters.arguments >>
+                    --ec2-tag-filters Key=Name,Value=pythonapp,Type=KEY_AND_VALUE
+        deployment-config: << parameters.deployment-config >>
+        deployment-group: << parameters.deployment-group >>
+        get-deployment-group-arguments: << parameters.get-deployment-group-arguments  >>
+        service-role-arn: << parameters.service-role-arn >>
+    - aws-code-deploy/push-bundle:
+        application-name: << parameters.application-name >>
+        arguments: << parameters.arguments >>
+        bundle-bucket: << parameters.bundle-bucket >>
+        bundle-key: << parameters.bundle-key >>
+        bundle-source: << parameters.bundle-source >>
+        bundle-type: << parameters.bundle-type >>
+    - aws-code-deploy/deploy-bundle:
+        application-name: << parameters.application-name >>
+        arguments: << parameters.arguments >>
+        bundle-bucket: << parameters.bundle-bucket >>
+        bundle-key: << parameters.bundle-key >>
+        bundle-type: << parameters.bundle-type >>
+        deployment-config: << parameters.deployment-config >>
+        deployment-group: << parameters.deployment-group >>
 
 workflows:
   main:
     jobs:
       # - build-and-test
-      - aws-code-deploy/deploy:
+      - deploy:
           application-name: trade-webapp
           bundle-bucket: petercode
           bundle-key: trade-webapp
           deployment-group: pythonapp2
-          deployment-config:
-            CodeDeployDefault.OneAtATime
-            --ec2-tag-filters Key=Name,Value=pythonapp,Type=KEY_AND_VALUE
           service-role-arn: arn:aws:iam::207363230413:role/codedeploy2
           # requires:
           #   - build-and-test  # Only deploy once the build job has completed
