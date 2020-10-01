@@ -19,15 +19,15 @@ jobs:
 workflows:
   main:
     jobs:
-      - build-and-test
+      # - build-and-test
       - aws-code-deploy/deploy:
           application-name: trade-webapp
           bundle-bucket: petercode
           bundle-key: trade-webapp
           deployment-group: pythonapp1
           service-role-arn: arn:aws:iam::207363230413:role/codedeploy2
-          requires:
-            - build-and-test  # Only deploy once the build job has completed
+          # requires:
+          #   - build-and-test  # Only deploy once the build job has completed
           filters:
             branches:
               only: master # Only deploy on the master branch
