@@ -13,6 +13,6 @@ cp /home/ec2-user/www/project/scripts/nginx/staging.conf /etc/nginx/sites-availa
 
 ln -s /etc/nginx/sites-available/my-project-host.conf /etc/nginx/sites-enabled/my-project-host.conf
 
-sudo nginx -s reopen
+sudo nginx
 sudo nginx -s reload
 # sudo nginx -s start
