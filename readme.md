@@ -82,6 +82,10 @@ commenting out the collect statics files because I don't have statistic files to
 
 
 encountered a problem where the virtual env cannot create the environment folder due to permission issue even though the appspec should make the owner and permission ec2-user in the permission section. need to look further into the practice of permission and ownership, however, the current strategy will be running all the scripts using root. I created a new deployment group to circumsize the error. 
+deployment-group: pythonapp2
+    --ignoreApplicationStopFailures
+    --ec2-tag-filters Key=Name Value=pythonapp
+
 
 raise KeyError(key) from None
 [stderr]KeyError: 'DJANGO_SECRET_KEY'
