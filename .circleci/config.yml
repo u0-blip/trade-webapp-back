@@ -27,7 +27,7 @@ workflows:
           deployment-group: pythonapp2
           deployment-config:
             CodeDeployDefault.OneAtATime
-            --ignoreApplicationStopFailures
+            --ignore-application-stop-failures
             --ec2-tag-filters Key=Name Value=pythonapp
           service-role-arn: arn:aws:iam::207363230413:role/codedeploy2
           # requires:
