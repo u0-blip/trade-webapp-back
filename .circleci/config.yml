@@ -27,7 +27,7 @@ workflows:
           deployment-group: pythonapp2
           deployment-config:
             CodeDeployDefault.OneAtATime
-            --ec2-tag-filters Key=Name Value=pythonapp
+            --ec2-tag-filters Key=Name,Value=pythonapp,Type=KEY_AND_VALUE
           service-role-arn: arn:aws:iam::207363230413:role/codedeploy2
           # requires:
           #   - build-and-test  # Only deploy once the build job has completed
