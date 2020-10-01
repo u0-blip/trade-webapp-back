@@ -20,7 +20,7 @@ hooks:
       timeout: 6000
     - location: scripts/migrate.sh
       timeout: 6000
-      runas: ec2-user
+      runas: root
     - location: scripts/ngnix.sh
       timeout: 6000
       runas: root
@@ -32,3 +32,5 @@ hooks:
     - location: scripts/stop_application.sh
       timeout: 6000
       runas: root
+
+#sudo /opt/codedeploy-agent/bin/codedeploy-local -e AfterInstall,ApplicationStart

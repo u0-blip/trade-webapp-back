@@ -2,6 +2,8 @@
 
 cd /home/ec2-user/www/project/
 source /home/ec2-user/www/project-venv/bin/activate
-mkdir -p /home/ec2-user/www/project/logs/
+sudo mkdir -p /home/ec2-user/www/project/logs/
+. /home/ec2-user/.bashrc
 # echo yes | DJANGO_SETTINGS_MODULE=peterMusically.settings.staging SECRET_KEY=$DJANGO_SECRET_KEY /home/ec2-user/www/project/manage.py collectstatic
-DJANGO_SETTINGS_MODULE=peterMusically.settings.staging SECRET_KEY=$ENV_SECRET_KEY supervisord -c /home/ec2-user/www/project/scripts/supervisor/default.conf 
+sudo pkill supervisor*
+DJANGO_SETTINGS_MODULE=peterMusically.settings.dev SECRET_KEY=$DJANGO_SECRET_KEY supervisord -c /home/ec2-user/www/project/scripts/supervisor/default.conf 

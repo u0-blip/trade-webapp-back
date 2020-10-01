@@ -2,3 +2,4 @@ migrations/
 database/
 secret_key
 *.sqlite3
+__pycache__
