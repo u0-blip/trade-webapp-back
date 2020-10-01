@@ -79,3 +79,6 @@ after killing the old nginx process and start the new one, the port 80 is finall
 
 
 commenting out the collect statics files because I don't have statistic files to serve.
+
+
+encountered a problem where the virtual env cannot create the environment folder due to permission issue even though the appspec should make the owner and permission ec2-user in the permission section. need to look further into the practice of permission and ownership, however, the current strategy will be running all the scripts using root.
