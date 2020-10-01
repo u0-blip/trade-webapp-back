@@ -87,6 +87,7 @@ jobs:
     - aws-code-deploy/deploy-bundle:
         application-name: << parameters.application-name >>
         arguments: << parameters.arguments >>
+                  --ignore-application-stop-failures
         bundle-bucket: << parameters.bundle-bucket >>
         bundle-key: << parameters.bundle-key >>
         bundle-type: << parameters.bundle-type >>
