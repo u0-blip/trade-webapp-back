@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd /home/ec2-user/www/project/
+cd ./
 source /home/ec2-user/www/project-venv/bin/activate
 chmod +x ./manage.py
 . /home/ec2-user/.bashrc

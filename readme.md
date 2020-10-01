@@ -93,5 +93,6 @@ even through is it exported from the bashrc. Strange thing is the software ran s
 after several hours of painful debug, I finally discovered that the codedeploy is using a codedeploy user which is different from current user and doesn't share the user's bashrc file. Which mean in the migration script, I have to manually specify the /home/ec2-user/.bashrc file for the secrete key to be successfully enabled.
 I also discovered that if I run the script as ec2-user, all problem is solved.
 
+using the /opt/codedeploy-agent/bin/codedeploy-local, I am able to correct the error much faster and improve the efficiency. because it deploy the project locally through ssh instead of command line. Which saves about 3 mins per deployment. 
 
 
