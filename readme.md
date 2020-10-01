@@ -90,5 +90,6 @@ deployment-group: pythonapp2
 raise KeyError(key) from None
 [stderr]KeyError: 'DJANGO_SECRET_KEY'
 
-even through is it exported from the bashrc.
+even through is it exported from the bashrc. Strange thing is the software ran successfully in the terminal.
+
 
