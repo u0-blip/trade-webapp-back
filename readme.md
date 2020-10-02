@@ -71,7 +71,7 @@ export LD_RUN_PATH=$HOME/opt/sqlite/lib
 nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
 In order to solve it:
 sudo yum install net-tools
-netstat -ltnp | grep -w ':80'
+sudo netstat -ltnp | grep -w ':80'
 however, the above returns empty.
 after turning on the port 80 for the EC2 instance. the nginx server is finally up and running. I suspect this is due to the port is not open and the nginx process is stuck in the limbo.
 ps aux | grep nginx
@@ -95,4 +95,11 @@ I also discovered that if I run the script as ec2-user, all problem is solved.
 
 using the /opt/codedeploy-agent/bin/codedeploy-local, I am able to correct the error much faster and improve the efficiency. because it deploy the project locally through ssh instead of command line. Which saves about 3 mins per deployment. 
 
+if it is ran as user codedeploy, even though the bashrc file is run, the environment variable does not seem to populate the environment. 
+sudo chown ec2-user:ec2-user -R /opt/codedeploy-agent/
+
+after lifecycle ApplicationStart, the Django server is still not running. Looking into the log file, /tmp/supervisor.log, the error is spawnerr: unknown error making dispatchers for 'run_django': EACCES.
+I suspect that it's because the run_django permission to edit the log file that's owned by the root user, so ec2-user cannot change them.
+It is able to run using root user, but the root use does not have the gunicorn installed unfortunatly. 
+after changing the ownership of the log folder to the user, the supervisor thread is successfully started and application is visitable through external IP address.
 
